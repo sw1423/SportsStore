@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Ninject;
+using SportsStore.WebUI.Infrastruture;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +15,7 @@ namespace SportsStore.WebUI
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            DependencyResolver.SetResolver(new NinjectDependencyResolver(new StandardKernel()));
         }
     }
 }
