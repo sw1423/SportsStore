@@ -120,5 +120,23 @@ result.ToString());
             Assert.AreEqual(results[1], "Oranges");
             Assert.AreEqual(results[2], "Plums");
         }
+        [TestMethod]
+        public void Indicates_Selected_Category()
+        {
+            //准备一创建模仿存储库
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[] {
+                new Product {ProductID = 1, Name ="P1",Category = "Apples"},
+                new Product {ProductID = 4, Name = "P2", Category = "Oranges"},
+            });
+            //准备一创建控制器
+            NavController target = new NavController(mock.Object);
+            //准备一定义已选分类
+            string categoryToSelect = "Apples";
+            //动作
+            string result = target.Menu(categoryToSelect).ViewBag.SelectedCategory;
+            //断言
+            Assert.AreEqual(categoryToSelect, result);
+        }
     }
 }
