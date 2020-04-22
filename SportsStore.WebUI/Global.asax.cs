@@ -1,5 +1,7 @@
 ﻿using Ninject;
+using SportsStore.Domain.Entities;
 using SportsStore.WebUI.Infrastruture;
+using SportsStore.WebUI.Infrastruture.Binders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,7 @@ namespace SportsStore.WebUI
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(new StandardKernel()));
+            ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
         }
     }
 }
