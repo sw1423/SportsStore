@@ -1,12 +1,18 @@
 ﻿using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace SportsStore.Domain.Concrete
 {
     public class EFProductRepository : IProductRepository
     {
-        private EFDbContext context = new EFDbContext();
+        private EFDbContext context;
+        public EFProductRepository()
+        {
+            Database.SetInitializer<EFDbContext>(null);
+            context = new EFDbContext();
+        }
         public IEnumerable<Product> Products => context.Products;
 
         public Product DeleteProduct(int productID)
@@ -26,6 +32,7 @@ namespace SportsStore.Domain.Concrete
             if (product.ProductID == 0)
             {
                 context.Products.Add(product);
+                context.SaveChanges();
             }
             else
             {
@@ -36,6 +43,9 @@ namespace SportsStore.Domain.Concrete
                     dbEntry.Description = product.Description;
                     dbEntry.Price = product.Price;
                     dbEntry.Category = product.Category;
+                    dbEntry.ImageData = product.ImageData;
+                    dbEntry.ImageMImeType = product.ImageMImeType;
+
                     context.SaveChanges();
                 }
             }

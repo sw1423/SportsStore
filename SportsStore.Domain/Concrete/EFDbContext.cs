@@ -17,5 +17,7 @@ namespace SportsStore.Domain.Concrete
                 System.Configuration.ConfigurationManager.ConnectionStrings["EFDbContext"].ConnectionString;
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
